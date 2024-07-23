@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic_toDoList</title>
+
+    <style>
+        body{
+           background-color: black;
+           display: flex;
+           align-items: center;
+           flex-direction: column;
+           min-height: 100vh;
+        }
+        h1{
+           color: white;
+        }
+        button{
+           background: #f5ee62;
+           width: 5rem;
+           height: 2.6rem;
+           border-radius: 1.5rem;
+           cursor: pointer;
+        }
+        #inputValue{
+           border-radius: 1.5rem;
+           font-size: .9rem;
+           height: 1.5rem;
+           width: 12rem;
+           padding: .5rem;
+        }
+        .main_todo_div{
+           display: flex;
+        }
+        li{
+           margin: .5rem;
+           background-color: white;
+           height: 1.5rem;
+           width: 12rem;
+           border-radius: 1.5rem;
+           list-style: none;
+           font-size: .9rem;
+           padding: .5rem;
+        }
+    </style>
+
+</head>
+<body>
+<h1>To Do List</h1>
+<br />
+<form id="todoForm">
+    <div>
+        <input type="text" id="inputValue" placeholder="type something">
+        <button class="Btn">Add</button>
+    </div>
+</form>
+<section class="todo-lists-elem"></section>
+
+<script>
+    const inputValue = document.querySelector("#inputValue");
+    const mainTodoElem = document.querySelector(".todo-lists-elem");
+    const todoForm = document.querySelector("#todoForm");
+
+    const addTodoList = (e) => {
+        e.preventDefault();
+        if (inputValue.value.trim() === "") {
+            alert("Please enter a valid to-do item");
+            return;
+        }
+        const createDiv = document.createElement("div");
+        createDiv.classList.add("main_todo_div");
+        createDiv.innerHTML = `<li>${inputValue.value}</li> <button class="deleteBtn">Delete</button>`;
+        mainTodoElem.append(createDiv);
+
+        const deleteBtn = createDiv.querySelector(".deleteBtn");
+        deleteBtn.addEventListener("click", () => {
+            mainTodoElem.removeChild(createDiv);
+        });
+
+        inputValue.value = ""; // Clear the input field after adding
+    };
+
+    todoForm.addEventListener("submit", addTodoList);
+
+</script>
+
+</body>
+</html>
